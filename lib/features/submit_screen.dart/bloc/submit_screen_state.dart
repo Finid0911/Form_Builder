@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_example/core/objects/drop_down_item.dart';
 import 'package:form_builder_example/utilities/constants.dart';
 
-class MyFormState {
+class SubmitScreenState {
+  String formTitle;
+  String formDescription;
+  List<QuestionBuilderState> questionListState;
+
+  SubmitScreenState({
+    this.formTitle = "",
+    this.formDescription = "",
+    List<QuestionBuilderState>? questionListState,
+  }) : questionListState = questionListState ?? [QuestionBuilderState()];
+}
+
+class QuestionBuilderState {
   List<DropDownItem> dropDownList;
-  String selectedDropDownItem;
+  String selectedInputType;
   List<String> multipleChoices;
   String selectedMultipleChoice;
   String questiontitle;
@@ -16,11 +28,11 @@ class MyFormState {
         itemIcon: Icons.radio_button_checked, itemTitle: "Multiple choice"),
   ];
 
-  MyFormState({
+  QuestionBuilderState({
     List<DropDownItem>? dropDownList,
     List<String>? multipleChoices,
     this.selectedMultipleChoice = "",
-    this.selectedDropDownItem = paragraph,
+    this.selectedInputType = paragraph,
     this.questiontitle = "",
     this.paragraphAnswer = "",
   })  : dropDownList = dropDownList ?? _defaultDropDownList,

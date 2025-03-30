@@ -14,6 +14,7 @@ class CommonInputField extends StatelessWidget {
   final Function(String) onSelectMultipleChoice;
   final Function(String) onQuestionTitleChange;
   final Function(String) onParagraphAnswerChange;
+  final Function() onDeleteQuestion;
 
   const CommonInputField({
     super.key,
@@ -25,6 +26,7 @@ class CommonInputField extends StatelessWidget {
     required this.onSelectMultipleChoice,
     required this.onQuestionTitleChange,
     required this.onParagraphAnswerChange,
+    required this.onDeleteQuestion,
   });
 
   @override
@@ -81,7 +83,7 @@ class CommonInputField extends StatelessWidget {
                 String() => throw UnimplementedError(),
               },
               const Padding(
-                padding: EdgeInsets.only(top: 50.0, bottom: 10.0),
+                padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
                 child: CustomLine(
                   opacity: 0.3,
                 ),
@@ -93,7 +95,7 @@ class CommonInputField extends StatelessWidget {
                       onPressed: () => {},
                       icon: const Icon(Icons.edit_outlined)),
                   IconButton(
-                      onPressed: () => {},
+                      onPressed: onDeleteQuestion,
                       icon: const Icon(Icons.delete_rounded))
                 ],
               )

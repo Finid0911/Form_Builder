@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:form_builder_example/features/view/my_form_page.dart';
+import 'package:form_builder_example/features/submit_screen.dart/view/submit_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +17,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SafeArea(
-        child: Scaffold(
-          body: MyFormPage(),
-        ),
+        child: SubmitScreen(),
       ),
     );
   }

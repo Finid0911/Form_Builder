@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_example/common_widgets/common_icon.dart';
 import 'package:form_builder_example/common_widgets/common_text.dart';
+import 'package:form_builder_example/constants/app_padding.dart';
 import 'package:form_builder_example/core/objects/drop_down_item.dart';
 
 class CommonDropDown extends StatelessWidget {
@@ -16,39 +18,44 @@ class CommonDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          width: 1.0,
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.paddingMedium),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(4.0),
         ),
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      child: DropdownButton<String>(
-        isExpanded: true,
-        value: selectedValue,
-        onChanged: (newValue) {
-          if (newValue != null) {
-            onChanged(newValue);
-          }
-        },
-        underline: Container(), // remove underline
-        items: itemList.map((item) {
-          return DropdownMenuItem<String>(
-            value: item.itemTitle,
-            child: Row(
-              children: [
-                Icon(item.itemIcon, size: 20),
-                const SizedBox(width: 10.0),
-                CommonText(
-                  textTitle: item.itemTitle,
-                ),
-              ],
-            ),
-          );
-        }).toList(),
+        child: DropdownButton<String>(
+          isExpanded: false,
+          value: selectedValue,
+          onChanged: (newValue) {
+            if (newValue != null) {
+              onChanged(newValue);
+            }
+          },
+          underline: Container(), // remove underline
+          items: itemList.map((item) {
+            return DropdownMenuItem<String>(
+              value: item.itemTitle,
+              child: Row(
+                children: [
+                  CommonIcon(
+                    iconData: item.itemIcon,
+                    iconSize: 20.0,
+                  ),
+                  const SizedBox(width: 10.0),
+                  CommonText(
+                    textTitle: item.itemTitle,
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

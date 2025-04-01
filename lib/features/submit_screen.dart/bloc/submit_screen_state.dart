@@ -15,12 +15,16 @@ class SubmitScreenState {
 }
 
 class QuestionBuilderState {
+  int questionId;
   List<DropDownItem> dropDownList;
   String selectedInputType;
   List<String> multipleChoices;
   String selectedMultipleChoice;
   String questiontitle;
   String paragraphAnswer;
+  bool isEditMode;
+
+  static int _nextId = 1;
 
   static final List<DropDownItem> _defaultDropDownList = [
     DropDownItem(itemIcon: Icons.article_outlined, itemTitle: "Paragraph"),
@@ -33,8 +37,22 @@ class QuestionBuilderState {
     List<String>? multipleChoices,
     this.selectedMultipleChoice = "",
     this.selectedInputType = paragraph,
-    this.questiontitle = "",
+    this.questiontitle = "Question",
     this.paragraphAnswer = "",
+    this.isEditMode = true,
   })  : dropDownList = dropDownList ?? _defaultDropDownList,
-        multipleChoices = multipleChoices ?? ["option1", "option2"];
+        multipleChoices = multipleChoices ?? ["option1", "option2"],
+        questionId = _nextId++;
+
+  static void setToSubmitMode(List<QuestionBuilderState> questionList) {
+    for (var question in questionList) {
+      question.isEditMode = false;
+    }
+  }
+
+  static void setToEditMode(List<QuestionBuilderState> questionList) {
+    for (var question in questionList) {
+      question.isEditMode = true;
+    }
+  }
 }

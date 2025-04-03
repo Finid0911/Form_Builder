@@ -45,8 +45,6 @@ app.*.map.json
 /android/app/release
 /android/app/src
 
-
-#
-**/linux/flutter
-**/windows/flutter
-macos/Flutter/
+**/linux/flutter/
+**/windows/flutter/
+**/macos/Flutter/

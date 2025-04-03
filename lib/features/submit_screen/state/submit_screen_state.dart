@@ -5,11 +5,13 @@ import 'package:form_builder_example/utilities/constants.dart';
 class SubmitScreenState {
   String formTitle;
   String formDescription;
+  bool isEditModeOnTitleSection;
   List<QuestionBuilderState> questionListState;
 
   SubmitScreenState({
     this.formTitle = "",
     this.formDescription = "",
+    this.isEditModeOnTitleSection = true,
     List<QuestionBuilderState>? questionListState,
   }) : questionListState = questionListState ?? [QuestionBuilderState()];
 }
@@ -41,18 +43,12 @@ class QuestionBuilderState {
     this.paragraphAnswer = "",
     this.isEditMode = true,
   })  : dropDownList = dropDownList ?? _defaultDropDownList,
-        multipleChoices = multipleChoices ?? ["option1", "option2"],
+        multipleChoices = multipleChoices ?? ["Option 1", moreOptions],
         questionId = _nextId++;
 
   static void setToSubmitMode(List<QuestionBuilderState> questionList) {
     for (var question in questionList) {
       question.isEditMode = false;
-    }
-  }
-
-  static void setToEditMode(List<QuestionBuilderState> questionList) {
-    for (var question in questionList) {
-      question.isEditMode = true;
     }
   }
 }

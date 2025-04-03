@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_example/constants/app_text_size.dart';
 
 class CommonText extends StatelessWidget {
   final String? textTitle;
@@ -22,7 +23,7 @@ class CommonText extends StatelessWidget {
     final theme = Theme.of(context);
     final textStyle = theme.textTheme.displaySmall?.copyWith(
       color: textColor ?? Colors.black,
-      fontSize: textSize ?? 16.0,
+      fontSize: textSize ?? AppTextSize.textSizeMedium,
       fontFamily: fontFamily,
       fontWeight: fontWeight ?? FontWeight.normal,
       fontStyle: FontStyle.normal,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_example/common_widgets/common_text.dart';
 import 'package:form_builder_example/common_widgets/custom_line.dart';
 import 'package:form_builder_example/constants/app_padding.dart';
 import 'package:form_builder_example/constants/app_text_size.dart';
 
-class CommonTextField extends StatefulWidget {
+class CommonTitleTextField extends StatefulWidget {
   final String? textLabel;
   final double? textSize;
   final Color? textColor;
@@ -13,7 +14,7 @@ class CommonTextField extends StatefulWidget {
   final void Function(String newValue)? onValueChange;
   final bool isEditMode;
 
-  const CommonTextField({
+  const CommonTitleTextField({
     super.key,
     this.textLabel,
     this.textSize,
@@ -26,10 +27,10 @@ class CommonTextField extends StatefulWidget {
   });
 
   @override
-  _CommonTextFieldState createState() => _CommonTextFieldState();
+  _CommonTitleTextFieldState createState() => _CommonTitleTextFieldState();
 }
 
-class _CommonTextFieldState extends State<CommonTextField> {
+class _CommonTitleTextFieldState extends State<CommonTitleTextField> {
   late TextEditingController _controller;
 
   @override
@@ -58,28 +59,35 @@ class _CommonTextFieldState extends State<CommonTextField> {
     return Container(
       width: double.infinity,
       color: widget.backgroundColor,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.paddingMedium),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: widget.textLabel,
-                border: InputBorder.none,
-              ),
-              onChanged: (value) {
-                widget.onValueChange?.call(value);
-              },
-              style: textStyle,
+      child: widget.isEditMode
+          ? Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.paddingMedium),
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: widget.textLabel,
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) {
+                      widget.onValueChange?.call(value);
+                    },
+                    style: textStyle,
+                  ),
+                ),
+                const CustomLine(
+                  color: Colors.black,
+                ),
+              ],
+            )
+          : CommonText(
+              textTitle: _controller.text.trim() == ""
+                  ? widget.textLabel
+                  : _controller.text,
+              textSize: widget.textSize,
             ),
-          ),
-          const CustomLine(
-            color: Colors.black,
-          ),
-        ],
-      ),
     );
   }
 }

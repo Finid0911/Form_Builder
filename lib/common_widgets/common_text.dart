@@ -8,6 +8,7 @@ class CommonText extends StatelessWidget {
   final String? fontFamily;
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
+  final Function()? onTap;
 
   const CommonText(
       {super.key,
@@ -16,7 +17,8 @@ class CommonText extends StatelessWidget {
       this.textColor,
       this.fontFamily,
       this.fontWeight,
-      this.textAlign});
+      this.textAlign,
+      this.onTap,});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +31,13 @@ class CommonText extends StatelessWidget {
       fontStyle: FontStyle.normal,
     );
 
-    return Text(
-      textTitle ?? "",
-      style: textStyle,
-      textAlign: textAlign ?? TextAlign.start,
+    return GestureDetector(
+      onTap: onTap,
+      child: Text(
+        textTitle ?? "",
+        style: textStyle,
+        textAlign: textAlign ?? TextAlign.start,
+      ),
     );
   }
 }

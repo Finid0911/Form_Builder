@@ -20,6 +20,9 @@ class CommonInputField extends StatelessWidget {
   final Function(String) onParagraphAnswerChange;
   final Function() onDeleteQuestion;
   final bool isEditMode;
+  final Function() onAddOption;
+  final Function() onAddOther;
+  final Function(int, String) onChangeOptionValue;
 
   const CommonInputField({
     super.key,
@@ -34,6 +37,9 @@ class CommonInputField extends StatelessWidget {
     required this.onParagraphAnswerChange,
     required this.onDeleteQuestion,
     required this.isEditMode,
+    required this.onAddOption,
+    required this.onAddOther,
+    required this.onChangeOptionValue,
   });
 
   @override
@@ -73,6 +79,9 @@ class CommonInputField extends StatelessWidget {
                 multipleChoices: multipleChoices,
                 onParagraphAnswerChange: onParagraphAnswerChange,
                 onSelectMultipleChoice: onSelectMultipleChoice,
+                onAddOption: onAddOption,
+                onAddOther: onAddOther,
+                onChangeOptionValue: onChangeOptionValue,
               ),
               if (isEditMode) ...[
                 const Padding(
@@ -154,6 +163,9 @@ class _QuestionInputTypeField extends StatelessWidget {
   final List<String> multipleChoices;
   final Function(String) onSelectMultipleChoice;
   final Function(String) onParagraphAnswerChange;
+  final Function() onAddOption;
+  final Function() onAddOther;
+  final Function(int, String) onChangeOptionValue;
 
   const _QuestionInputTypeField({
     required this.inputType,
@@ -162,6 +174,9 @@ class _QuestionInputTypeField extends StatelessWidget {
     required this.multipleChoices,
     required this.onParagraphAnswerChange,
     required this.onSelectMultipleChoice,
+    required this.onAddOption,
+    required this.onAddOther,
+    required this.onChangeOptionValue,
   });
 
   @override
@@ -178,6 +193,9 @@ class _QuestionInputTypeField extends StatelessWidget {
             selectedOption: selectedMultipleChoice,
             onSelectionChanged: onSelectMultipleChoice,
             isEditMode: isEditMode,
+            onAddOption: onAddOption,
+            onAddOther: onAddOther,
+            onChangeOptionValue: onChangeOptionValue,
           ),
         ),
       String() => throw UnimplementedError(),

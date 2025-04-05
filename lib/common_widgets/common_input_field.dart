@@ -45,58 +45,59 @@ class CommonInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.paddingExtraMedium),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _QuestionInputField(
+              isEditMode: isEditMode,
+              questionTitle: questionTitle,
+              onQuestionTitleChange: onQuestionTitleChange,
+            ),
+            if (isEditMode)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppPadding.paddingCustomSmall,
+                ),
+                child: CommonDropDown(
+                  itemList: dropDownList,
+                  selectedValue: inputType,
+                  onChanged: onInputTypeChanged,
+                ),
+              ),
+            _QuestionInputTypeField(
+              inputType: inputType,
+              isEditMode: isEditMode,
+              selectedMultipleChoice: selectedMultipleChoice,
+              multipleChoices: multipleChoices,
+              onParagraphAnswerChange: onParagraphAnswerChange,
+              onSelectMultipleChoice: onSelectMultipleChoice,
+              onAddOption: onAddOption,
+              onAddOther: onAddOther,
+              onChangeOptionValue: onChangeOptionValue,
+            ),
+            if (isEditMode) ...[
+              const Padding(
+                padding: EdgeInsets.only(top: 46.0),
+                child: CustomLine(
+                  opacity: 0.3,
+                ),
+              ),
+              IconButton(
+                  onPressed: onDeleteQuestion,
+                  icon: const CommonIcon(iconData: Icons.delete_rounded))
+            ]
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.paddingExtraMedium),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _QuestionInputField(
-                isEditMode: isEditMode,
-                questionTitle: questionTitle,
-                onQuestionTitleChange: onQuestionTitleChange,
-              ),
-              if (isEditMode)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.paddingCustomSmall,
-                  ),
-                  child: CommonDropDown(
-                    itemList: dropDownList,
-                    selectedValue: inputType,
-                    onChanged: onInputTypeChanged,
-                  ),
-                ),
-              _QuestionInputTypeField(
-                inputType: inputType,
-                isEditMode: isEditMode,
-                selectedMultipleChoice: selectedMultipleChoice,
-                multipleChoices: multipleChoices,
-                onParagraphAnswerChange: onParagraphAnswerChange,
-                onSelectMultipleChoice: onSelectMultipleChoice,
-                onAddOption: onAddOption,
-                onAddOther: onAddOther,
-                onChangeOptionValue: onChangeOptionValue,
-              ),
-              if (isEditMode) ...[
-                const Padding(
-                  padding: EdgeInsets.only(top: 46.0),
-                  child: CustomLine(
-                    opacity: 0.3,
-                  ),
-                ),
-                IconButton(
-                    onPressed: onDeleteQuestion,
-                    icon: const CommonIcon(iconData: Icons.delete_rounded))
-              ]
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
 
@@ -124,8 +125,9 @@ class _QuestionInputField extends StatelessWidget {
                 Flexible(
                   flex: 9,
                   child: CommonTextField(
+                    textTitle: questionTitle,
                     textLabel: "Question",
-                    backgroundColor: const Color.fromARGB(255, 239, 241, 239),
+                    backgroundColor: const Color.fromARGB(255, 245, 245, 245),
                     onValueChange: onQuestionTitleChange,
                     isEditMode: isEditMode,
                   ),
@@ -142,13 +144,12 @@ class _QuestionInputField extends StatelessWidget {
             )
           : Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.paddingMedium),
-              child: Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: CommonText(
-                    textTitle: questionTitle,
-                  ),
+                horizontal: AppPadding.paddingMedium,
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                child: CommonText(
+                  textTitle: questionTitle,
                 ),
               ),
             ),

@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_example/core/objects/drop_down_item.dart';
 import 'package:form_builder_example/utilities/constants.dart';
 
-class SubmitScreenState {
+class QuestionsState {
   String formTitle;
   String formDescription;
   bool isEditModeOnTitleSection;
-  List<QuestionBuilderState> questionListState;
+  List<QuestionItemState> questionListState;
 
-  SubmitScreenState({
+  QuestionsState({
     this.formTitle = "",
     this.formDescription = "",
     this.isEditModeOnTitleSection = true,
-    List<QuestionBuilderState>? questionListState,
-  }) : questionListState = questionListState ?? [QuestionBuilderState()];
+    List<QuestionItemState>? questionListState,
+  }) : questionListState = questionListState ?? [QuestionItemState()];
 }
 
-class QuestionBuilderState {
+class QuestionItemState {
   int questionId;
   List<DropDownItem> dropDownList;
   String selectedInputType;
@@ -34,21 +34,29 @@ class QuestionBuilderState {
         itemIcon: Icons.radio_button_checked, itemTitle: "Multiple choice"),
   ];
 
-  QuestionBuilderState({
+  QuestionItemState({
     List<DropDownItem>? dropDownList,
     List<String>? multipleChoices,
     this.selectedMultipleChoice = "",
     this.selectedInputType = paragraph,
-    this.questiontitle = "Question",
+    this.questiontitle = "",
     this.paragraphAnswer = "",
     this.isEditMode = true,
   })  : dropDownList = dropDownList ?? _defaultDropDownList,
         multipleChoices = multipleChoices ?? ["Option 1", moreOptions],
         questionId = _nextId++;
 
-  static void setToSubmitMode(List<QuestionBuilderState> questionList) {
+  static void setQuestionsToSubmitMode(List<QuestionItemState> questionList) {
     for (var question in questionList) {
       question.isEditMode = false;
     }
+  }
+
+  static void setQuestionsToSubmitModeExceptLastItem(
+      List<QuestionItemState> questionList) {
+    for (var question in questionList) {
+      question.isEditMode = false;
+    }
+    questionList.last.isEditMode = true;
   }
 }

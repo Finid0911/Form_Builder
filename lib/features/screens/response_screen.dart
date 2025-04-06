@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_example/common_widgets/common_answer_field.dart';
-import 'package:form_builder_example/providers/submit_screen_provider.dart';
+import 'package:form_builder_example/providers/questions_provider.dart';
+import 'package:form_builder_example/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
 class ResponseScreen extends StatelessWidget {
@@ -16,8 +17,12 @@ class ResponseScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         final currentItem = questionsState.questionListState[index];
         return CommonAnswerField(
-          question: currentItem.questiontitle,
-          answer: currentItem.paragraphAnswer,
+          question: currentItem.questionTitle,
+          answer: currentItem.selectedInputType == paragraph
+              ? currentItem.paragraphAnswer
+              : (currentItem.selectedInputType == multipleChoice
+                  ? currentItem.selectedMultipleChoice
+                  : ""),
         );
       },
     );

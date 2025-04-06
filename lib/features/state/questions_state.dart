@@ -14,49 +14,68 @@ class QuestionsState {
     this.isEditModeOnTitleSection = true,
     List<QuestionItemState>? questionListState,
   }) : questionListState = questionListState ?? [QuestionItemState()];
+
+  QuestionsState copyWith({
+    String? formTitle,
+    String? formDescription,
+    bool? isEditModeOnTitleSection,
+    List<QuestionItemState>? questionListState,
+  }) {
+    return QuestionsState(
+      formTitle: formTitle ?? this.formTitle,
+      formDescription: formDescription ?? this.formDescription,
+      isEditModeOnTitleSection:
+          isEditModeOnTitleSection ?? this.isEditModeOnTitleSection,
+      questionListState: questionListState ?? this.questionListState,
+    );
+  }
 }
 
 class QuestionItemState {
-  int questionId;
-  List<DropDownItem> dropDownList;
-  String selectedInputType;
-  List<String> multipleChoices;
-  String selectedMultipleChoice;
-  String questiontitle;
-  String paragraphAnswer;
-  bool isEditMode;
+  final List<DropDownItem> dropDownList;
+  final String selectedInputType;
+  final List<String> multipleChoices;
+  final String selectedMultipleChoice;
+  final String questionTitle;
+  final String paragraphAnswer;
+  final bool isEditMode;
 
-  static int _nextId = 1;
-
-  static final List<DropDownItem> _defaultDropDownList = [
+  static const List<DropDownItem> defaultDropDownList = [
     DropDownItem(itemIcon: Icons.article_outlined, itemTitle: "Paragraph"),
     DropDownItem(
         itemIcon: Icons.radio_button_checked, itemTitle: "Multiple choice"),
   ];
 
-  QuestionItemState({
-    List<DropDownItem>? dropDownList,
-    List<String>? multipleChoices,
-    this.selectedMultipleChoice = "",
+  static const List<String> defaultMultipleChoices = ["Option 1", moreOptions];
+
+  const QuestionItemState({
+    this.dropDownList = defaultDropDownList,
     this.selectedInputType = paragraph,
-    this.questiontitle = "",
+    this.multipleChoices = defaultMultipleChoices,
+    this.selectedMultipleChoice = "",
+    this.questionTitle = "",
     this.paragraphAnswer = "",
     this.isEditMode = true,
-  })  : dropDownList = dropDownList ?? _defaultDropDownList,
-        multipleChoices = multipleChoices ?? ["Option 1", moreOptions],
-        questionId = _nextId++;
+  });
 
-  static void setQuestionsToSubmitMode(List<QuestionItemState> questionList) {
-    for (var question in questionList) {
-      question.isEditMode = false;
-    }
-  }
-
-  static void setQuestionsToSubmitModeExceptLastItem(
-      List<QuestionItemState> questionList) {
-    for (var question in questionList) {
-      question.isEditMode = false;
-    }
-    questionList.last.isEditMode = true;
+  QuestionItemState copyWith({
+    List<DropDownItem>? dropDownList,
+    String? selectedInputType,
+    List<String>? multipleChoices,
+    String? selectedMultipleChoice,
+    String? questionTitle,
+    String? paragraphAnswer,
+    bool? isEditMode,
+  }) {
+    return QuestionItemState(
+      dropDownList: dropDownList ?? this.dropDownList,
+      selectedInputType: selectedInputType ?? this.selectedInputType,
+      multipleChoices: multipleChoices ?? this.multipleChoices,
+      selectedMultipleChoice:
+          selectedMultipleChoice ?? this.selectedMultipleChoice,
+      questionTitle: questionTitle ?? this.questionTitle,
+      paragraphAnswer: paragraphAnswer ?? this.paragraphAnswer,
+      isEditMode: isEditMode ?? this.isEditMode,
+    );
   }
 }

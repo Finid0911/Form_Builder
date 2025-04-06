@@ -6,7 +6,7 @@ import 'package:form_builder_example/common_widgets/common_title_text_field.dart
 import 'package:form_builder_example/constants/app_padding.dart';
 import 'package:form_builder_example/constants/app_text_size.dart';
 import 'package:form_builder_example/features/state/questions_state.dart';
-import 'package:form_builder_example/providers/submit_screen_provider.dart';
+import 'package:form_builder_example/providers/questions_provider.dart';
 import 'package:form_builder_example/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +72,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   icon: const CommonIcon(iconData: Icons.add_circle_rounded),
                 ),
                 IconButton(
-                  onPressed: provider.submitAction,
+                  onPressed: provider.onSubmitAnswer,
                   icon: const CommonIcon(iconData: Icons.done),
                 ),
               ],
@@ -151,8 +151,11 @@ class _QuestionListField extends StatelessWidget {
       itemBuilder: (context, index) {
         final currentItem = questionState.questionListState[index];
         return GestureDetector(
-          onTap: () =>
-              questionsProvider.onChangeQuestionToEditMode(currentItem),
+          onTap: () {
+            if (questionState.isEditModeOnTitleSection == true) {
+              questionsProvider.onChangeQuestionToEditMode(index);
+            }
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: AppPadding.paddingMedium,
@@ -161,21 +164,20 @@ class _QuestionListField extends StatelessWidget {
               inputType: currentItem.selectedInputType,
               dropDownList: currentItem.dropDownList,
               multipleChoices: currentItem.multipleChoices,
-              questionTitle: currentItem.questiontitle,
+              questionTitle: currentItem.questionTitle,
               onInputTypeChanged: (newValue) =>
-                  questionsProvider.updateSelectedInputType(index, newValue),
+                  questionsProvider.onSelectInputType(index, newValue),
               selectedMultipleChoice: currentItem.selectedMultipleChoice,
-              onSelectMultipleChoice: (newValue) => questionsProvider
-                  .updateSelectedMultipleChoice(index, newValue),
+              onSelectMultipleChoice: (newValue) =>
+                  questionsProvider.onSelectMultipleChoice(index, newValue),
               onQuestionTitleChange: (newValue) =>
                   questionsProvider.onQuestionTitleChange(index, newValue),
               onParagraphAnswerChange: (newValue) =>
                   questionsProvider.onParagraphAnswerChange(index, newValue),
-              onDeleteQuestion: () =>
-                  questionsProvider.removeQuestion(currentItem.questionId),
+              onDeleteQuestion: () => questionsProvider.removeQuestion(index),
               isEditMode: currentItem.isEditMode,
               onAddOption: () => questionsProvider.addOption(index),
-              onAddOther: () => questionsProvider.addOther(index),
+              onAddOther: () => questionsProvider.addOptionOther(index),
               onChangeOptionValue: (optionIndex, newValue) => questionsProvider
                   .onChangeOptionValue(index, optionIndex, newValue),
             ),

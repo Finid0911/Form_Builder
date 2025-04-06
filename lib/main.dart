@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_example/features/screens/response_screen.dart';
 import 'package:form_builder_example/features/screens/questions_screen.dart';
-import 'package:form_builder_example/providers/submit_screen_provider.dart';
+import 'package:form_builder_example/providers/questions_provider.dart';
 import 'package:form_builder_example/utilities/constants.dart';
 import 'package:form_builder_example/utilities/tab_enum.dart';
 import 'package:provider/provider.dart';

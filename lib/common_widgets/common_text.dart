@@ -9,16 +9,19 @@ class CommonText extends StatelessWidget {
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
   final Function()? onTap;
+  final double? padding;
 
-  const CommonText(
-      {super.key,
-      this.textTitle,
-      this.textSize,
-      this.textColor,
-      this.fontFamily,
-      this.fontWeight,
-      this.textAlign,
-      this.onTap,});
+  const CommonText({
+    super.key,
+    this.textTitle,
+    this.textSize,
+    this.textColor,
+    this.fontFamily,
+    this.fontWeight,
+    this.textAlign,
+    this.onTap,
+    this.padding,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,13 @@ class CommonText extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Text(
-        textTitle ?? "",
-        style: textStyle,
-        textAlign: textAlign ?? TextAlign.start,
+      child: Padding(
+        padding: EdgeInsets.all(padding ?? 0.0),
+        child: Text(
+          textTitle ?? "",
+          style: textStyle,
+          textAlign: textAlign ?? TextAlign.start,
+        ),
       ),
     );
   }

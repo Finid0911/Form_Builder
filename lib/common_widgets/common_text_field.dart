@@ -4,6 +4,7 @@ import 'package:form_builder_example/constants/app_padding.dart';
 import 'package:form_builder_example/constants/app_text_size.dart';
 
 class CommonTextField extends StatefulWidget {
+  final String textTitle;
   final String? textLabel;
   final double? textSize;
   final Color? textColor;
@@ -15,6 +16,7 @@ class CommonTextField extends StatefulWidget {
 
   const CommonTextField({
     super.key,
+    this.textTitle = "",
     this.textLabel,
     this.textSize,
     this.textColor,
@@ -35,7 +37,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: "");
+    _controller = TextEditingController(text: widget.textTitle);
   }
 
   @override

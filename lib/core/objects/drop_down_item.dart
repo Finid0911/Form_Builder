@@ -4,5 +4,5 @@ class DropDownItem {
   final IconData itemIcon;
   final String itemTitle;
 
-  DropDownItem({required this.itemIcon, required this.itemTitle});
+  const DropDownItem({required this.itemIcon, required this.itemTitle});
 }
